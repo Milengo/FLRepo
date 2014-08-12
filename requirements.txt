@@ -2,3 +2,5 @@ flask
 flask-bootstrap
 flask-script
 flask-sqlalchemy
+flask-wtf
+flask-login
