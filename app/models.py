@@ -1,7 +1,8 @@
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
-from . import db
-class User(db.Model):
+from flask.ext.login import UserMixin
+from . import db, login_manager
+class User(UserMixin, db.Model):
 	"""docstring for User"""
 	__tablename__ = 'users'
 	id = db.Column(db.Integer, primary_key=True)
@@ -24,3 +25,6 @@ class User(db.Model):
 
 	def verify_password(self, password):
 		return check_password_hash(self.password_hash, password)
+	@login_manager.user_loader
+	def load_user(user_id):
+		return User.query.get(int(user_id))
