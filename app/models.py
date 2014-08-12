@@ -24,7 +24,7 @@ class User(UserMixin, db.Model):
 	def __init__(self, **kwargs):
 		super(User, self).__init__(**kwargs)
 		if self.email is not None and self.avatar_hash is None:
-			self.avatar_hash = hashlib.mdb5(self.email.encode('utf-8')).hexdigest()
+			self.avatar_hash = hashlib.md5(self.email.encode('utf-8')).hexdigest()
 	def gravatar (self, size=100, default='identicon', rating='g'):
 		
 		if request.is_secure:
