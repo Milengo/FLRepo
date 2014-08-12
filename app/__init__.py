@@ -11,6 +11,9 @@ def create_app(config_name):
 
     from .tms import tms as tms_blueprint
     app.register_blueprint(tms_blueprint)
+    from .auth import auth as auth_blueprint
+    app.register_blueprint(auth_blueprint, url_prefix='/auth')
+
     bootstrap.init_app(app)
     db.init_app(app)
     

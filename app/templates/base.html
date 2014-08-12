@@ -10,6 +10,10 @@
             <ul class="nav navbar-nav">
                 <li><a href="{{ url_for('tms.index')}}">Translation Memories</a></li>
                 <li><a href="{{ url_for('tms.user', username='Jakub')}}">Users</a></li>
+
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="{{ url_for('auth.login')}}">Login</a></li>
             </ul>
 
         </div>
