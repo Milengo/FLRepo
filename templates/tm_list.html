@@ -1,0 +1,33 @@
+{% extends 'base.html'%}
+{% block content %}
+
+<div class="panel-default">
+    <div class="panel-header">List of Translation memories</div>
+<div class="panel-body">
+{% if tms %}
+<table class="table">
+    <theader>
+        <th class="col-md-2">Name</th>
+        <th class="col-md-2">Source Lang</th>
+        <th class="col-md-2">Target Lang</th>
+        <th class="col-md-2">Client</th>
+        <th class="col-md-2">Domain</th>        
+    </theader>   
+<tbody>
+    {% for tminfo in tms %}
+    <tr>
+    <td >{{ tminfo.Name }} </td><td>{{ tminfo.SourceLanguageCode }}</td><td>{{ tminfo.TargetLanguageCode }}</td>
+    <td> {{ tminfo.Client }}</td><td>{{ tminfo.Domain }}</td>
+    </tr>
+    {% endfor %}
+</tbody>
+</table>
+{% else %}
+<p>No TM uploaded yet</p>
+{% endif %} 
+</div>
+<div class="panel-footer">
+<a href="/">Back to index page</a>
+</div>
+</div>
+{% endblock %}
