@@ -7,11 +7,13 @@ from werkzeug import secure_filename
 from suds.client import Client
 import os
 from MemoqTMClient import MemoqTMClient
-from config import MEMOQ_SERVER_URL
-app = Flask(__name__)
+import config
 
-app.config['UPLOAD_FOLDER'] = 'media'
-app.secret_key = "lasdjkfhfle8293ry"
+
+app = Flask(__name__)
+app.config.from_object(config.DevelopmentConfig)
+
+
 
 
 @app.route("/")
@@ -52,7 +54,7 @@ def upload():
 
 @app.route('/tm_list', methods=['GET', 'POST'])
 def tm_list():
-    tm_client = MemoqTMClient(MEMOQ_SERVER_URL)
+    tm_client = MemoqTMClient(app.config['MEMOQ_SERVER_URL'])
     tms = tm_client.get_tm_list("","")
     return render_template('tm_list.html', tms=tms, tm_count= len(tms))
 
@@ -61,4 +63,4 @@ def tm_download(guid):
     return guid 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()

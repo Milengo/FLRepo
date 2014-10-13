@@ -3,6 +3,7 @@ import functools
 import asyncio
 import codecs
 import base64
+import config
 
 class MemoqTMClient():
     def __init__(self, server_url):
@@ -48,7 +49,7 @@ def download_tm(tm_guid):
 
 def main():
 
-    TMClient = MemoqTMClient('http://memoq-new.milengo.com')
+    TMClient = MemoqTMClient(config.DevelopmentConfig.MEMOQ_SERVER_URL)
     print(len(TMClient.get_tm_list("","")))
     #download_tm("57582ca0-a626-4848-bd26-f667d32bce09")
 
