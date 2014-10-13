@@ -1,0 +1,1 @@
+MEMOQ_SERVER_URL = "http://memoq-new.milengo.com"

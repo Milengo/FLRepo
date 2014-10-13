@@ -7,7 +7,7 @@ from werkzeug import secure_filename
 from suds.client import Client
 import os
 from MemoqTMClient import MemoqTMClient
-
+from config import MEMOQ_SERVER_URL
 app = Flask(__name__)
 
 app.config['UPLOAD_FOLDER'] = 'media'
@@ -52,7 +52,7 @@ def upload():
 
 @app.route('/tm_list', methods=['GET', 'POST'])
 def tm_list():
-    tm_client = MemoqTMClient("http://memoq-new.milengo.com")
+    tm_client = MemoqTMClient(MEMOQ_SERVER_URL)
     tms = tm_client.get_tm_list("","")
     return render_template('tm_list.html', tms=tms, tm_count= len(tms))
 
