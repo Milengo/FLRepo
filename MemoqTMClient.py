@@ -13,16 +13,13 @@ class MemoqTMClient():
         """returns list of translation memories, can be filtered"""
         self.tm_service = Client(url=self.server_url)
         return self.tm_service.service.ListTMs(source,target)[0]
-    def import_tmx(self, tmguid,filename):
+    def import_tmx(self, tmguid, filename):
         raise NotImplemented()
     def export_tmx(self, tmguid, filename):
         raise NotImplemented()
     def create(self, params):
         raise NotImplemented
-def get_tm_list(source="", target=""):
-    tm_service = Client(url="http://memoq-new.milengo.com")
-    tm_list = tm_service.service.ListTMs(source,target)
-    return tm_list[0]
+
 def get_next_chunk(fileh,session_id, tm_service, loop):
     chunk = tm_service.service.GetNextTMXChunk(session_id)
     if chunk:
