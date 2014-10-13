@@ -49,15 +49,21 @@ def upload():
             return redirect('upload')
     return render_template('upload_tm.html', tm_list=os.listdir(app.config['UPLOAD_FOLDER']))
 
-@app.route('/tm_list')
-@app.route('/tm_list/<src_lang>/<trg_lang>')
-def tm_list(src_lang="", trg_lang=""):
+@app.route('/tm_list', methods=['GET', 'POST'])
+def tm_list():
     tm_service = Client(url="http://memoq-new.milengo.com:8080/memoqservices/tm?singleWsdl")
-    tm_list = tm_service.service.ListTMs(src_lang,trg_lang)
-    tms = tm_list[0]
-    tm_count = len(tms)
-    
-    return render_template('tm_list.html', tms=tms, tm_count= tm_count)
+    src_lang=''
+    trg_lang=''
+    if request.method==['POST']:
+        tm_list = tm_service.service.ListTMs(request.form['source'],request.form['target'])
+        tms = tm_list[0]
+        tm_count = len(tms)
+        return render_template('tm_list.html', tms=tms, tm_count= tm_count)
+    else: 
+        tm_list = tm_service.service.ListTMs('','')
+        tms = tm_list[0]
+        tm_count = len(tms)
+        return render_template('tm_list.html', tms=tms, tm_count= tm_count)
 
 @app.route('/tm_download/<guid>') 
 def tm_download(guid): 
