@@ -1,22 +1,26 @@
 from suds.client import Client
-import functools
-import asyncio
-import codecs
-import base64
 import config
 
 class MemoqTMClient():
+    """"provides functionality from MemoqServer WS API """
+
+
     def __init__(self, server_url):
+        """expects url in form 'http://www.memoq.com'"""
+        
         self.server_url = "".join([server_url,':8080/memoqservices/tm?singleWsdl'])
 
     def get_tm_list(self, source="", target="" ):
         """returns list of translation memories, can be filtered"""
         self.tm_service = Client(url=self.server_url)
         return self.tm_service.service.ListTMs(source,target)[0]
+    
     def import_tmx(self, tmguid, filename):
         raise NotImplemented()
+    
     def export_tmx(self, tmguid, filename):
         raise NotImplemented()
+    
     def create(self, params):
         raise NotImplemented
 
