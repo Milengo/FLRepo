@@ -52,13 +52,15 @@ def upload():
 @app.route('/tm_list')
 def tm_list():
     tm_service = Client(url="http://memoq-new.milengo.com:8080/memoqservices/tm?singleWsdl")
-    tm_list = tm_service.service.ListTMs('eng','ger')
+    tm_list = tm_service.service.ListTMs('','')
     tms = tm_list[0]
     
 
     return render_template('tm_list.html', tms=tms)
 
-
+@app.route('/tm_download/<guid>') 
+def tm_download(guid): 
+    return guid 
 
 if __name__ == "__main__":
     app.run(debug=True)

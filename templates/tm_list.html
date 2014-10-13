@@ -13,14 +13,18 @@
         <th class="col-md-2">Client</th>
         <th class="col-md-2">Domain</th>        
     </theader>   
-<tbody>
-    {% for tminfo in tms %}
-    <tr>
-    <td >{{ tminfo.Name }} </td><td>{{ tminfo.SourceLanguageCode }}</td><td>{{ tminfo.TargetLanguageCode }}</td>
-    <td> {{ tminfo.Client }}</td><td>{{ tminfo.Domain }}</td>
-    </tr>
-    {% endfor %}
-</tbody>
+<tbody> 
+    {% for tminfo in tms %} 
+    {% if not (tminfo.Client and tminfo.Domain) != None %} 
+    <tr style="color:red"> 
+        {% else %} 
+    <tr> 
+        {% endif %} 
+    <td >{{ tminfo.Name }} </td><td>{{ tminfo.SourceLanguageCode }}</td><td>{{ tminfo.TargetLanguageCode }}</td> 
+    <td> {{ tminfo.Client }}</td><td>{{ tminfo.Domain }}</td><td><button class="btn btn-warning"><a href="/tm_download/{{tminfo.Guid}}">Download</button></td> 
+    </tr> 
+    {% endfor %} 
+</tbody> 
 </table>
 {% else %}
 <p>No TM uploaded yet</p>
