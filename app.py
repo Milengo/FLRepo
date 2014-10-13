@@ -54,9 +54,9 @@ def tm_list():
     tm_service = Client(url="http://memoq-new.milengo.com:8080/memoqservices/tm?singleWsdl")
     tm_list = tm_service.service.ListTMs('','')
     tms = tm_list[0]
-    
+    tm_count = len(tms)
 
-    return render_template('tm_list.html', tms=tms)
+    return render_template('tm_list.html', tms=tms, tm_count= tm_count)
 
 @app.route('/tm_download/<guid>') 
 def tm_download(guid): 
