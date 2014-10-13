@@ -6,6 +6,7 @@ from flask import request
 from werkzeug import secure_filename
 from suds.client import Client
 import os
+from MemoqTMClient import MemoqTMClient
 
 app = Flask(__name__)
 
@@ -51,19 +52,9 @@ def upload():
 
 @app.route('/tm_list', methods=['GET', 'POST'])
 def tm_list():
-    tm_service = Client(url="http://memoq-new.milengo.com:8080/memoqservices/tm?singleWsdl")
-    src_lang=''
-    trg_lang=''
-    if request.method==['POST']:
-        tm_list = tm_service.service.ListTMs(request.form['source'],request.form['target'])
-        tms = tm_list[0]
-        tm_count = len(tms)
-        return render_template('tm_list.html', tms=tms, tm_count= tm_count)
-    else: 
-        tm_list = tm_service.service.ListTMs('','')
-        tms = tm_list[0]
-        tm_count = len(tms)
-        return render_template('tm_list.html', tms=tms, tm_count= tm_count)
+    tm_client = MemoqTMClient("http://memoq-new.milengo.com")
+    tms = tm_client.get_tm_list("","")
+    return render_template('tm_list.html', tms=tms, tm_count= len(tms))
 
 @app.route('/tm_download/<guid>') 
 def tm_download(guid): 
