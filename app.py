@@ -56,11 +56,16 @@ def upload():
 def tm_list():
     tm_client = MemoqTMClient(app.config['MEMOQ_SERVER_URL'])
     tms = tm_client.get_tm_list("","")
+    with open('test.txt', 'w') as guid:
+        for tm in tms:
+            guid.write("Guid: {}, name: {}\r\n".format(tm.Guid, tm.Name))
     return render_template('tm_list.html', tms=tms, tm_count= len(tms))
 
 @app.route('/tm_download/<guid>') 
 def tm_download(guid): 
-    return guid 
+    tm_client = MemoqTMClient(app.config['MEMOQ_SERVER_URL'])
+    tm_client.export_tmx(guid, "".join([guid, ".tmx"]))
+    return redirect('tm_list')
 
 if __name__ == "__main__":
     app.run()
