@@ -12,7 +12,7 @@ import config
 
 app = Flask(__name__)
 app.config.from_object(config.DevelopmentConfig)
-
+app.config['UPLOAD_FOLDER'] = os.path.join(os.getcwd(),'media')
 
 
 
@@ -64,8 +64,8 @@ def tm_list():
 @app.route('/tm_download/<guid>/<name>') 
 def tm_download(guid, name): 
     tm_client = MemoqTMClient(app.config['MEMOQ_SERVER_URL'])
-    tm_client.export_tmx(guid, "".join([name, ".tmx"]))
-    return redirect('tm_list')
+    tm_client.export_tmx(guid, os.path.join(app.config['UPLOAD_FOLDER'],name + ".tmx"))
+    return redirect('upload')
 
 if __name__ == "__main__":
     app.run()
