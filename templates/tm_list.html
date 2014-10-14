@@ -37,7 +37,7 @@
     <tr> 
         {% endif %} 
     <td >{{ tminfo.Name }} </td><td>{{ tminfo.SourceLanguageCode }}</td><td>{{ tminfo.TargetLanguageCode }}</td> 
-    <td> {{ tminfo.Client }}</td><td>{{ tminfo.Domain }}</td><td><button class="btn btn-warning"><a href="/tm_download/{{tminfo.Guid}}">Download</button></td> 
+    <td> {{ tminfo.Client }}</td><td>{{ tminfo.Domain }}</td><td><button class="btn btn-warning"><a href="/tm_download/{{tminfo.Guid}}/{{tminfo.Name}}">Download</button></td> 
     </tr> 
     {% endfor %} 
 </tbody> 
