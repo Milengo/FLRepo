@@ -18,7 +18,7 @@
 <table class="table">
     {% for name in tm_list %}
     <tr>
-    <td >{{ name }} </td><td><button class="btn"><a href="{url_for(data, name=name)}">Read data</a></button></td>
+    <td >{{ name }} </td><td><button class="btn"><a href="{{ url_for('read_data', name=name) }}">Read data</a></button></td>
     </tr>
     {% endfor %}
 </table>

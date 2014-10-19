@@ -18,3 +18,6 @@ def upload():
             new_file.save(os.path.join(UPLOAD_FOLDER, filename))
             return redirect('upload')
     return render_template('upload_tm.html', tm_list=os.listdir(UPLOAD_FOLDER))
+@mod_tmx.route('/read_data/<name>')
+def read_tmx_data(name):
+    return name
