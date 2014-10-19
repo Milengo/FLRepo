@@ -2,7 +2,7 @@ from flask import Blueprint
 from flask import render_template
 from flask import redirect
 from MemoqTMClient import MemoqTMClient
-
+import os
 
 MEMOQ_SERVER_URL = "http://memoq-new.milengo.com"
 
@@ -20,6 +20,6 @@ def tm_list():
 
 @mod_memoqclient.route('/tm_download/<guid>/<name>') 
 def tm_download(guid, name): 
-    tm_client = MemoqTMClient(app.config['MEMOQ_SERVER_URL'])
-    tm_client.export_tmx(guid, os.path.join(app.config['UPLOAD_FOLDER'],name + ".tmx"))
-    return redirect('tmx.upload')
+    tm_client = MemoqTMClient(MEMOQ_SERVER_URL)
+    tm_client.export_tmx(guid, os.path.join(os.getcwd(), 'media',name + ".tmx"))
+    return redirect('upload')

@@ -13,3 +13,4 @@ from application.mod_memoqclient import mod_memoqclient
 from application.mod_tmx import *
 
 app.register_blueprint(mod_memoqclient)
+app.register_blueprint(mod_tmx)
