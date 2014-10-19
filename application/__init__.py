@@ -6,7 +6,7 @@ import os
 app = Flask(__name__)
 conf = DevelopmentConfig()
 app.config.from_object(conf)
-app.config['UPLOAD_FOLDER'] = os.path.join(os.getcwd(),'media')
+
 
 from application.mod_auth import *
 from application.mod_memoqclient import mod_memoqclient
