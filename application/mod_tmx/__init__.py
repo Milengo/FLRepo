@@ -3,6 +3,7 @@ from flask import render_template
 from flask import redirect
 from flask import request
 import os
+from application.mod_tmx.tmx import Tmx
 
 UPLOAD_FOLDER = os.path.join(os.getcwd(), 'media')
 
