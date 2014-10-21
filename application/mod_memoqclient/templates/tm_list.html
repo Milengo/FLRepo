@@ -28,7 +28,7 @@
 <tbody> 
     {% for tminfo in tms %} 
     {% if not (tminfo.Client and tminfo.Domain) != None %} 
-    <tr style="color:red"> 
+    <tr class="missing_meta"> 
         {% else %} 
     <tr> 
         {% endif %} 
