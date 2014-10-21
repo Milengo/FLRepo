@@ -2,8 +2,18 @@
 {% block content %}
 
 <form action="" method="post">
-        <input type='text' placeholder='' name='source' value='{{request.form.source}}'/>
-        <input type='text' placeholder='' name='target' value='{{request.form.target}}'/>
+        <select type='select' placeholder='' name='source' value=''>
+            {% for src_lang in src %}
+            <option>{{src_lang}}</option>
+            {% endfor %}
+        </select>
+        
+
+        <select type='select' placeholder='' name='target' value=''>
+            {% for trg_lang in trg %}
+            <option>{{trg_lang}}</option>
+            {% endfor %}
+        </select>
         <input class='btn btn-default' type='submit' value='Filter'/>
 
 </form>
