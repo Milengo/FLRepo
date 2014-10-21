@@ -2,24 +2,40 @@
 {% block content %}
 
 <form action="" method="post">
-        <select type='select' placeholder='' name='source' value=''>
+        <select type='select' placeholder='' id='source' value=''>
+            <option selected></option>
             {% for src_lang in src %}
             <option>{{src_lang}}</option>
             {% endfor %}
         </select>
         
 
-        <select type='select' placeholder='' name='target' value=''>
+        <select type='select' placeholder='' id='target' value=''>
+            <option selected ></option>
             {% for trg_lang in trg %}
             <option>{{trg_lang}}</option>
             {% endfor %}
         </select>
-        <input class='btn btn-default' type='submit' value='Filter'/>
+        <select type='select' placeholder='' name='client' value=''>
+            <option selected></option>
+            {% for client in clients %}
+            <option>{{client}}</option>
+            {% endfor %}
+        </select>
+        <select type='select' placeholder='' name='domain' value=''>
+            <option selected></option>
+            {% for domain in domains %}
+            <option>{{domain}}</option>
+            {% endfor %}
+        </select>
+
+        <input class='btn btn-default' id="apply_filter" type="button" value='Filter'/>
+        <input class='btn btn-default' id="reset_filter" type="button" value='Reset filters'/>
 
 </form>
 
 <div class="panel-default">
-    <div class="panel-header"><h4>List of Translation memories: {{ tm_count }} translation memories on the server</h4>
+    <div class="panel-header"><h4>{{ tm_count }} translation memories on the server</h4>
     
     
 
@@ -37,11 +53,10 @@
     </theader>   
 <tbody> 
     {% for tminfo in tms %} 
-    {% if not (tminfo.Client and tminfo.Domain) != None %} 
-    <tr class="missing_meta"> 
-        {% else %} 
-    <tr> 
-        {% endif %} 
+    <tr {% if not (tminfo.Client and tminfo.Domain) != None %} class="missing_meta" {% endif %} data-srclang={{tminfo.SourceLanguageCode}} data-trglang={{tminfo.TargetLanguageCode}} data-client="{{tminfo.Client}}">
+    
+
+    
     <td >{{ tminfo.Name }} </td><td>{{ tminfo.SourceLanguageCode }}</td><td>{{ tminfo.TargetLanguageCode }}</td> 
     <td> {{ tminfo.Client }}</td><td>{{ tminfo.Domain }}</td><td><button class="btn btn-warning"><a href="/tm_download/{{tminfo.Guid}}/{{tminfo.Name}}">Download</button></td> 
     </tr> 
@@ -56,4 +71,5 @@
 <a href="/">Back to index page</a>
 </div>
 </div>
+
 {% endblock %}
