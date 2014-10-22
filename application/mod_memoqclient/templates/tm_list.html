@@ -19,13 +19,13 @@
         <select type='select' placeholder='' name='client' value=''>
             <option selected></option>
             {% for client in clients %}
-            <option>{{client}}</option>
+            <option value="{{loop.index}}">{{client}}</option>
             {% endfor %}
         </select>
         <select type='select' placeholder='' name='domain' value=''>
             <option selected></option>
             {% for domain in domains %}
-            <option>{{domain}}</option>
+            <option value="{{loop.index}}">{{domain}}</option>
             {% endfor %}
         </select>
 

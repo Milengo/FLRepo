@@ -13,17 +13,17 @@ mod_memoqclient = Blueprint('mod_memoqclient', __name__, template_folder='templa
 def tm_list():
     tm_client = MemoqTMClient(MEMOQ_SERVER_URL)
     tms = tm_client.get_tm_list("","")
-    src_langs = {}
-    targ_langs = {}
-    clients = {}
-    domains = {}
+    src_langs = set()
+    targ_langs = set()
+    clients = set()
+    domains = set()
     for tm_info in tms:
-    	src_langs[tm_info.SourceLanguageCode]=tm_info.SourceLanguageCode
-    	targ_langs[tm_info.TargetLanguageCode]=tm_info.TargetLanguageCode
-    	clients[tm_info.Client]=tm_info.Client
-    	domains[tm_info.Domain]=tm_info.Domain
-    return render_template('tm_list.html', tms=tms, tm_count= len(tms), src=src_langs, trg=targ_langs, clients=clients,
-    	 domains=domains)
+    	src_langs.add(tm_info.SourceLanguageCode)
+    	targ_langs.add(tm_info.TargetLanguageCode)
+    	clients.add(tm_info.Client)
+    	domains.add(tm_info.Domain)
+    return render_template('tm_list.html', tms=tms, tm_count= len(tms), src=list(src_langs), trg=list(targ_langs), clients=list(clients),
+    	 domains=list(domains))
 
 @mod_memoqclient.route('/tm_download/<guid>/<name>') 
 def tm_download(guid, name): 
