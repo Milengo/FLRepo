@@ -53,7 +53,7 @@
     </theader>   
 <tbody> 
     {% for tminfo in tms %} 
-    <tr {% if not (tminfo.Client and tminfo.Domain) != None %} class="missing_meta" {% endif %} data-srclang={{tminfo.SourceLanguageCode}} data-trglang={{tminfo.TargetLanguageCode}} data-client="{{tminfo.Client}}">
+    <tr {% if not (tminfo.Client and tminfo.Domain) != None %} class="missing_meta" {% endif %} data-srclang={{tminfo.SourceLanguageCode}} data-trglang={{tminfo.TargetLanguageCode}} data-client={{clients.index(tminfo.Client)+1}} data-domain={{domains.index(tminfo.Domain)+1}}>
     
 
     
