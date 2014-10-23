@@ -5,7 +5,9 @@
 <p>
     <div class="input-group">
     <form action="" method="post" enctype='multipart/form-data'>
+        <div class="input-group">
         <input type='file' class="form-control" name='file' value='Select file'/>
+        </div><div class="input-group">
         <input class='btn btn-default form-control' type='submit' value='Upload'/>
 
     </form>
@@ -18,7 +20,7 @@
 <table class="table">
     {% for name in tm_list %}
     <tr>
-    <td >{{ name }} </td><td><button class="btn"><a href="#">Read data</a></button></td>
+    <td >{{ name }} </td><td><button class="btn"><a href="/read_data/{{name}}">Read data</a></button></td>
     </tr>
     {% endfor %}
 </table>
