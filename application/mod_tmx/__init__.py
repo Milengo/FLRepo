@@ -7,7 +7,8 @@ from application.mod_tmx.tmx import Tmx
 
 UPLOAD_FOLDER = os.path.join(os.getcwd(), 'media')
 
-mod_tmx = Blueprint('mod_tmx', __name__, template_folder='templates')
+mod_tmx = Blueprint('mod_tmx', __name__, 
+    template_folder='templates')
 
 @mod_tmx.route('/upload')
 def upload():
@@ -17,7 +18,8 @@ def upload():
             filename = secure_filename(new_file.filename)
             new_file.save(os.path.join(UPLOAD_FOLDER, filename))
             return redirect('upload')
-    return render_template('upload_tm.html', tm_list=os.listdir(UPLOAD_FOLDER))
+    return render_template('upload_tm.html', 
+        tm_list=os.listdir(UPLOAD_FOLDER))
 @mod_tmx.route('/read_data/<name>')
 def read_tmx_data(name):
     return name

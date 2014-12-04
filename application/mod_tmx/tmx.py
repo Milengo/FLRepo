@@ -1,3 +1,4 @@
+"""module to handle files in TMX format"""
 import xml.etree.ElementTree as ET
 
 class Tmx(object):
@@ -18,14 +19,17 @@ class Tmx(object):
 			return self.tmx.attrib['version']
 	
 	def get_header(self):
+		"""return header element"""
 		return self.tmx[0].attrib
 	
 	def get_properties(self, element):
+		"""creates a list of properties in TMX file"""
 		properties = dict()
 		for prop in element.iter(tag='prop'):
 			properties[prop.attrib['type']]=prop.text
 		return properties
 	def len(self):
+		"""returns number of translation units"""
 		return len(self.tmx.findall("./body/tu"))
 	def next(self):
 		"""generator to go through all TMX segments"""
