@@ -1,5 +1,5 @@
 from suds.client import Client
-import config
+import app.config
 import codecs
 import base64
 

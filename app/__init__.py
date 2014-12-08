@@ -6,8 +6,8 @@ from flask import request
 from werkzeug import secure_filename
 from suds.client import Client
 import os
-from memoqtmclient import MemoqTMClient
-import config
+from app.memoqtmclient import MemoqTMClient
+import app.config
 
 
 app = Flask(__name__)
