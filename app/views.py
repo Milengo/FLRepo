@@ -1,7 +1,9 @@
 from app import app
 from flask import render_template
 from flask import request
+from flask import redirect
 from app.memoqtmclient import MemoqTMClient
+from app.tmx import TU, Tmx
 import os
 
 @app.route("/")
@@ -55,3 +57,10 @@ def tm_download(guid, name):
     tm_client = MemoqTMClient(app.config['MEMOQ_SERVER_URL'])
     tm_client.export_tmx(guid, os.path.join(app.config['UPLOAD_FOLDER'],name + ".tmx"))
     return redirect('upload')
+@app.route('/read_tmx/<filename>')
+def read_tm_data(filename):
+    filepath = os.path.join(app.config['UPLOAD_FOLDER'],filename)
+    tmx = Tmx(filepath)
+
+    return render_template('tm_display.html', segments = tmx.trans_units)
+

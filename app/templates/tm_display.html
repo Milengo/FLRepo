@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>View TM</h1>
+
+<div class="panel-default">
+    <div class="panel-header">List of Segments</div>
+<div class="panel-body">
+{% if segments %}
+<table class="table">
+    {% for tunit in segments %}
+    <tr>
+    <td >{{ tunit.source }} </td><td>{{ tunit.target }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% else %}
+<p>No Segments read</p>
+{% endif %}
+</div>
+<div class="panel-footer">
+<a href="/">Back to index page</a>
+</div>
+</div>
+
+{% endblock %}
