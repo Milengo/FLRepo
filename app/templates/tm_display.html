@@ -2,6 +2,31 @@
 {% block content %}
 <h1>View TM</h1>
 
+{% if attributes %}
+<div class="panel-default">
+<div class="panel-header">TM attributes</div>
+<table class="table">
+<thead><td>Attribute</td><td>Value</td></thead>
+{% for key, value in attributes.items() %}
+<tr><td>{{ key }}</td><td>{{ value }}</td></tr>
+{% endfor %}
+
+</table>
+</div>
+{% endif %}
+{% if custom_properties %}
+<div class="panel-default">
+<div class="panel-header">TM custom properties</div>
+<table class="table">
+<thead class="table-header"><td>Property</td><td>Value</td></thead>
+{% for key, value in custom_properties.items() %}
+<tr><td>{{ key }}</td><td>{{ value }}</td></tr>
+{% endfor %}
+<tr><td>Number of segments</td><td>{{ count }}</td></tr>
+</table>
+</div>
+{% endif %}
+
 <div class="panel-default">
     <div class="panel-header">List of Segments</div>
 <div class="panel-body">

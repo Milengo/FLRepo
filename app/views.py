@@ -62,5 +62,6 @@ def read_tm_data(filename):
     filepath = os.path.join(app.config['UPLOAD_FOLDER'],filename)
     tmx = Tmx(filepath)
 
-    return render_template('tm_display.html', segments = tmx.trans_units)
+    return render_template('tm_display.html', segments = tmx.trans_units, attributes = tmx.attributes, custom_properties = tmx.properties,
+        count=tmx.len())
 
