@@ -5,7 +5,7 @@
 <p>
     <div class="input-group">
     <form action="" method="post" enctype='multipart/form-data'>
-        <input type='file' class="form-control" name='file' value='Select file'/>
+        <input type='file' class="form-control" name='file' id="file" value='Select file'/>
         <input class='btn btn-default form-control' type='submit' value='Upload'/>
 
     </form>
@@ -15,7 +15,7 @@
     <div class="panel-header">List of Translation memories</div>
 <div class="panel-body">
 {% if tm_list %}
-<table class="table">
+<table class="table" id="tms">
     {% for name in tm_list %}
     <tr>
     <td >{{ name }} </td><td><button class="btn"><a href="/read_tmx/{{name}}">Read data</a></button></td>
