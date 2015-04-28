@@ -49,7 +49,7 @@ def tm_download(guid, name):
         os.path.join(
             app.config['UPLOAD_FOLDER'],
             name + ".tmx"))
-    return redirect('upload')
+    return redirect('tm_list')
 
 
 @app.route('/read_tmx/<filename>')

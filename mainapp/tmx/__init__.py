@@ -142,4 +142,3 @@ class Tmx(object):
             filename,
             xml_declaration=True,
             encoding='UTF-8')
-
