@@ -51,6 +51,7 @@ def tm_download(guid, name):
             tmx_name)
 
     tm_client.export_tmx(guid, filename)
+    
     return send_from_directory(directory=app.config['UPLOAD_FOLDER'], filename=tmx_name)
 
 
