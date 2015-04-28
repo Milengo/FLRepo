@@ -1,9 +1,9 @@
+import os
 
 class Config(object):
     DEBUG = False
     TESTING = False
-    MEMOQ_SERVER_URL = "http://memoq-new.milengo.com"
-
+    MEMOQ_SERVER_URL = os.environ.get('MEMOQ_SERVER_URL')
     SECRET_KEY = "lasdjkfhfle8293ry"
 
 

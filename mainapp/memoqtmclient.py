@@ -64,7 +64,7 @@ def get_next_chunk(fileh, session_id, tm_service, loop):
 
 def download_tm(tm_guid):
 
-    tm_service = Client(url="http://memoq-new.milengo.com:8080/memoqservices/tm?singleWsdl")
+    tm_service = Client(url="MemoqServer.com/memoqservices/tm?singleWsdl")
 
     session_id = tm_service.service.BeginChunkedTMXExport(tm_guid)
     fileh = codecs.open(
