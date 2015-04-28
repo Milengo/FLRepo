@@ -2,6 +2,7 @@ from mainapp import app
 from flask import render_template
 from flask import request
 from flask import redirect
+from flask import send_from_directory
 from mainapp.memoqtmclient import MemoqTMClient
 from mainapp.tmx import Tmx
 import os
@@ -44,12 +45,12 @@ def tm_list():
 @app.route('/tm_download/<guid>/<name>')
 def tm_download(guid, name):
     tm_client = MemoqTMClient(app.config['MEMOQ_SERVER_URL'])
-    tm_client.export_tmx(
-        guid,
-        os.path.join(
+    filename = os.path.join(
             app.config['UPLOAD_FOLDER'],
-            name + ".tmx"))
-    return redirect('tm_list')
+            name + ".tmx")
+    tmx_name = ".".join([name,'tmx'])
+    tm_client.export_tmx(guid, filename)
+    return send_from_directory(directory=app.config['UPLOAD_FOLDER'], filename=tmx_name)
 
 
 @app.route('/read_tmx/<filename>')
