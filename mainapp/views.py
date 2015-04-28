@@ -45,10 +45,11 @@ def tm_list():
 @app.route('/tm_download/<guid>/<name>')
 def tm_download(guid, name):
     tm_client = MemoqTMClient(app.config['MEMOQ_SERVER_URL'])
+    tmx_name = ".".join([name, 'tmx'])
     filename = os.path.join(
             app.config['UPLOAD_FOLDER'],
-            name + ".tmx")
-    tmx_name = ".".join([name,'tmx'])
+            tmx_name)
+
     tm_client.export_tmx(guid, filename)
     return send_from_directory(directory=app.config['UPLOAD_FOLDER'], filename=tmx_name)
 
