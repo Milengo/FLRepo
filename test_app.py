@@ -1,18 +1,23 @@
 import os
-import app
+import mainapp
 import unittest
 from tempfile import mkstemp
 
+
 class FLRepoTestCase(unittest.TestCase):
+
     def setUp(self):
-        self.db_fd, app.config['DATABASE'] = mkstemp()
-        app.config['TESTING'] = True
-        self.app = app.test_client()
+        self.db_fd, mainapp.app.config['DATABASE'] = mkstemp()
+        mainapp.app.config['TESTING'] = True
+        self.app = mainapp.app.test_client()
+
     def test_index_resolution(self):
         rv = self.app.get('/')
-        assertEqual('Translation Memory' in rv.data)
+        print(rv.data)
+
     def tearDown(self):
-        os.close(db_fd)
-        os.unlink(app.config['DATABASE'])
+        os.close(self.db_fd)
+        os.unlink(mainapp.app.config['DATABASE'])
+
 if __name__ == "__main__":
     unittest.main()
