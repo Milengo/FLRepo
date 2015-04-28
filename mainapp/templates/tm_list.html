@@ -1,22 +1,8 @@
 {% extends 'base.html'%}
 {% block content %}
 
-<form action="" method="post">
-        <input type='text' placeholder='' name='source' value='{{request.form.source}}'/>
-        <input type='text' placeholder='' name='target' value='{{request.form.target}}'/>
-        <input class='btn btn-default' type='submit' value='Filter'/>
-
-</form>
-
 <div class="panel-default">
     <div class="panel-header"><h4>List of Translation memories: {{ tm_count }} translation memories on the server</h4>
-    <ul>List of common filters
-    <li><a href="/tm_list">Show all</a></li>
-    <li><a href="/tm_list/eng/ger">English to German</a></li>
-    <li><a href="/tm_list/eng/por-BR">English to Portuguese Brasil</a></li>
-    <li><a href="/tm_list/eng/fre">English to French</a></li>
-    
-    </ul>
     </div>
 <div class="panel-body">
 
@@ -37,7 +23,7 @@
     <tr> 
         {% endif %} 
     <td >{{ tminfo.Name }} </td><td>{{ tminfo.SourceLanguageCode }}</td><td>{{ tminfo.TargetLanguageCode }}</td> 
-    <td> {{ tminfo.Client }}</td><td>{{ tminfo.Domain }}</td><td><button class="btn btn-warning"><a href="/tm_download/{{tminfo.Guid}}/{{tminfo.Name}}">Download</button></td> 
+    <td> {{ tminfo.Client }}</td><td>{{ tminfo.Domain }}</td><td><button class="btn btn-warning"><a href="/tm_download/{{tminfo.Guid}}/{{tminfo.Name}}">Remove names</button></td> 
     </tr> 
     {% endfor %} 
 </tbody> 
