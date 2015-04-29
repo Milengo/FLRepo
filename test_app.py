@@ -5,7 +5,6 @@ from unittest.mock import patch
 from tempfile import mkstemp
 
 
-
 class FLRepoTestCase(unittest.TestCase):
 
     def setUp(self):
@@ -21,15 +20,25 @@ class FLRepoTestCase(unittest.TestCase):
         os.close(self.db_fd)
         os.unlink(mainapp.app.config['DATABASE'])
 
-    @patch('mainapp.views.MemoqTMClient')
-    def test_download_tm_route_redirects_to_same_url(self, mock):
-        mock.export_tmx("some_global", "filename").return_value = None
+    @patch('mainapp.views.MemoqTMClient', autospec=True)
+    def test_download_tm_route_executes_call_to_api(self, mock):
+        mock.export_tmx("some_global", "filename").return_value = True
 
         rv = self.app.get('/tm_download/{guid}/{name}'.format(
             guid='some_global', name='filename'))
-        self.assertEqual(rv.status, '200')
+        mock.export_tmx.assert_called_once_with('some_global', 'filename')
 
+    @patch('mainapp.views.MemoqTMClient', autospec=True)
+    def test_download_tm_route_returns_200(self, mock):
+        temp_tm, filename = mkstemp(dir=mainapp.app.config['UPLOAD_FOLDER'])
+        mock.export_tmx("some_global", filename).return_value = True
+        tm_name = '.'.join([filename.split(r'\\')[-1], 'tmx'])
+        print(tm_name)
+        rv = self.app.get('/tm_download/{guid}/{name}'.format(
+            guid='some_global', name=tm_name))
 
+        self.assertEqual(rv.status, "200 OK")
+        os.close(temp_tm)
 
 if __name__ == "__main__":
     unittest.main()
