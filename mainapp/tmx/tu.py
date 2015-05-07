@@ -29,7 +29,7 @@ class TU(object):
         #obligatory attributes for a translation unit
         self.attributes = dict()
         self.language_pair = LanguagePair(source='', target='')
-        if tuv:
+        if tuv is not None:
             self.fromxml(tuv)
 
     def toxml(self):
@@ -58,7 +58,7 @@ class TU(object):
     def fromxml(self, xml_tu):
         '''parses tuv element to read data'''
 
-        if xml_tu and xml_tu.tag == 'tu':
+        if xml_tu is not None and xml_tu.tag == 'tu':
             self.properties = create_properties_dict(xml_tu)
             self.attributes.update(xml_tu.attrib)
 

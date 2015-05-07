@@ -1,4 +1,4 @@
-import xml.etree.ElementTree as ET
+from lxml import etree as ET
 
 
 from mainapp.tmx.tu import TU
@@ -11,9 +11,7 @@ class Tmx(object):
 
     def __init__(self, filename=''):
         self.trans_units = []
-        #custom properties for a translation memory
         self.properties = dict()
-        #obligatory attributes for a translation memory
         self.attributes = dict()
         if filename:
             self.tmx = ET.parse(filename).getroot()
@@ -25,10 +23,18 @@ class Tmx(object):
             for prop in self.tmx[0].findall('prop'):
                 self.properties[prop.attrib['type']] = prop.text
 
-    def get_version(self):
-        '''retrieves version of TMX file'''
-        if 'version' in self.tmx.attrib:
-            return self.tmx.attrib['version']
+    @classmethod
+    def create(self, tmx_source):
+        new_tmx = Tmx()
+        if isinstance(tmx_source, str):
+            new_tmx.tmx = ET.fromstring(tmx_source)
+            new_tmx.trans_units = [TU(tu) for tu in new_tmx.tmx.iter(tag="tu")]
+
+            new_tmx.attributes.update(new_tmx.tmx.find('header').attrib)
+
+            for prop in new_tmx.tmx[0].findall('prop'):
+                new_tmx.properties[prop.attrib['type']] = prop.text
+        return new_tmx
 
     def __len__(self):
         '''gets number of translation units'''
