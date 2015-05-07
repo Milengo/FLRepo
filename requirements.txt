@@ -3,3 +3,4 @@ suds-jurko
 selenium
 Flask-Testing
 blinker
+lxml
