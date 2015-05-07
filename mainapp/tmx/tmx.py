@@ -1,3 +1,9 @@
+import xml.etree.ElementTree as ET
+
+
+from mainapp.tmx.tu import TU
+
+
 class Tmx(object):
 
     """class wrapped around Elementtree to represent Translation Memory
