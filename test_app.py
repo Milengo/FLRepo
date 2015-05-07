@@ -29,6 +29,7 @@ class FLRepoTestCase(TestCase):
         rv = self.app.get('/')
         self.assertEqual(rv.status, '200 OK')
 
+    @unittest.skip('has to be finished')
     @patch('mainapp.views.MemoqTMClient', autospec=True)
     def test_download_tm_route_executes_call_to_api(self, mock):
         mock.export_tmx("some_global", "filename").return_value = True
@@ -37,6 +38,7 @@ class FLRepoTestCase(TestCase):
             guid='some_global', name='filename'))
         mock.export_tmx.assert_called_once_with('some_global', 'filename')
 
+    @unittest.skip('has to be finished')
     @patch('mainapp.views.MemoqTMClient', autospec=True)
     def test_download_tm_route_returns_200(self, mock):
         temp_tm, filename = mkstemp(dir=mainapp.app.config['UPLOAD_FOLDER'])
