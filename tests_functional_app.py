@@ -11,6 +11,7 @@ class FLRepoTest(unittest.TestCase):
     def tearDown(self):
         self.browser.quit()
 
+    @unittest.skip()
     def test_basetemplate(self):
         # application should be running
         self.browser.get('http://localhost:5000')
@@ -29,6 +30,7 @@ class FLRepoTest(unittest.TestCase):
         # and a div container
         self.assertTrue(self.browser.find_element_by_class_name('container'))
 
+    @unittest.skip()
     def test_uploadTM(self):
         # application should be running
         self.browser.get('http://localhost:5000')

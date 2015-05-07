@@ -4,7 +4,7 @@ from flask import request
 from flask import redirect
 from flask import send_from_directory
 from mainapp.memoqtmclient import MemoqTMClient
-from mainapp.tmx import Tmx
+from mainapp.tmx.tmx import Tmx
 import os
 
 
@@ -49,10 +49,15 @@ def tm_download(guid, name):
     filename = os.path.join(
             app.config['UPLOAD_FOLDER'],
             tmx_name)
-
     tm_client.export_tmx(guid, filename)
-    
-    return send_from_directory(directory=app.config['UPLOAD_FOLDER'], filename=tmx_name)
+    tmx = Tmx(filename)
+    for segment in tmx:
+        segment.attributes['creationid'] = 'Milengo'
+        segment.attributes['changeid'] = 'Milengo'
+    tmx.save(filename)
+    return send_from_directory(
+        directory=app.config['UPLOAD_FOLDER'],
+        filename=tmx_name, as_attachment=True)
 
 
 @app.route('/read_tmx/<filename>')
@@ -65,4 +70,4 @@ def read_tm_data(filename):
         segments=tmx.trans_units,
         attributes=tmx.attributes,
         custom_properties=tmx.properties,
-        count=tmx.len())
+        count=len(tmx))
