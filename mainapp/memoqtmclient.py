@@ -24,69 +24,19 @@ class MemoqTMClient():
         raise NotImplemented()
 
     def export_tmx(self, tmguid, filename):
-        self.session_id = self.tm_service.service.BeginChunkedTMXExport(tmguid)
+        session_id = self.tm_service.service.BeginChunkedTMXExport(tmguid)
 
-        self.fileh = codecs.open(filename, 'w', encoding='UTF16')
+        fileh = codecs.open(filename, 'w', encoding='UTF16')
         while 1:
-            self.chunk = self.tm_service.service.GetNextTMXChunk(self.session_id)
-            if self.chunk is None:
+            chunk = self.tm_service.service.GetNextTMXChunk(session_id)
+            if chunk is None:
                 break
 
-            self.as_str = str(base64.b64decode(self.chunk), encoding='utf-16')
+            as_str = str(base64.b64decode(chunk), encoding='utf-16')
 
-            self.fileh.write(self.as_str)
+            fileh.write(as_str)
         self.tm_service.service.EndChunkedTMXExport(self.session_id)
 
     def create(self, params):
         raise NotImplemented
 
-
-def get_next_chunk(fileh, session_id, tm_service, loop):
-
-    chunk = tm_service.service.GetNextTMXChunk(session_id)
-    if chunk:
-        fileh.write(chunk)
-        loop.call_later(30,
-        functools.partial(
-            get_next_chunk,
-            fileh,
-            session_id,
-            tm_service,
-            loop))
-    else:
-        fileh.close()
-        loop.call_later(
-            2,
-            functools.partial(
-                tm_service.service.EndChunkedTMXExport,
-                session_id))
-
-
-def download_tm(tm_guid):
-
-    tm_service = Client(url="MemoqServer.com/memoqservices/tm?singleWsdl")
-
-    session_id = tm_service.service.BeginChunkedTMXExport(tm_guid)
-    fileh = codecs.open(
-        "6af51589-2c72-4036-bb7c-0bbeed1c96bb.tmx",
-        'w',
-        encoding='UTF16')
-
-    while 1:
-        chunk = tm_service.service.GetNextTMXChunk(session_id)
-        if chunk is None:
-            break
-
-        as_str = str(base64.b64decode(chunk), encoding='utf-16')
-        print(chunk.__doc__)
-
-        fileh.write(as_str)
-    tm_service.service.EndChunkedTMXExport(session_id)
-
-
-def main():
-
-    download_tm("6af51589-2c72-4036-bb7c-0bbeed1c96bb")
-
-if __name__ == '__main__':
-    main()
