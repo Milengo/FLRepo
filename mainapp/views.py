@@ -6,6 +6,7 @@ from flask import send_from_directory
 from mainapp.memoqtmclient import MemoqTMClient
 from mainapp.tmx import Tmx
 import os
+import logging
 
 
 @app.route("/")
@@ -37,7 +38,25 @@ def tm_list():
     tm_client = MemoqTMClient(app.config['MEMOQ_SERVER_URL'])
     tms = tm_client.get_tm_list("", "")
     tms.sort(key=lambda x: x.Name)
-    return render_template('tm_list.html', tms=tms, tm_count=len(tms))
+    src_langs, trg_langs = get_langs(tms)
+    logging.info("\\".join(src_langs))
+    return render_template(
+        'tm_list.html',
+        tms=tms,
+        tm_count=len(tms),
+        src_langs=src_langs,
+        trg_langs=trg_langs)
+
+
+def get_langs(tm_list):
+    src_lang = []
+    trg_lang = []
+    for tm in tm_list:
+        if tm.SourceLanguageCode not in src_lang:
+            src_lang.append(tm.SourceLanguageCode)
+        if tm.TargetLanguageCode not in trg_lang:
+            trg_lang.append(tm.TargetLanguageCode)
+    return (src_lang, trg_lang)
 
 
 @app.route('/tm_download/<guid>/<name>')
