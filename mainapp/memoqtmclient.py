@@ -39,4 +39,3 @@ class MemoqTMClient():
 
     def create(self, params):
         raise NotImplemented
-

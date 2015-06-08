@@ -36,9 +36,7 @@ def upload():
 def tm_list():
     tm_client = MemoqTMClient(app.config['MEMOQ_SERVER_URL'])
     tms = tm_client.get_tm_list("", "")
-    with open('test.txt', 'w') as guid:
-        for tm in tms:
-            guid.write("Guid: {}, name: {}\r\n".format(tm.Guid, tm.Name))
+    tms.sort(key=lambda x: x.Name)
     return render_template('tm_list.html', tms=tms, tm_count=len(tms))
 
 
