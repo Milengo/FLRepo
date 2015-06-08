@@ -8,11 +8,16 @@
 
 {% if tms %}
 <select class="chosen" multiple="true" style="width:400px;">
-    <option>Choose source...</option>
     {% for src_lang in src_langs %}
     <option value="{{src_lang}}">{{src_lang}}</option>
     {% endfor %}
 </select>
+<select class="chosen" multiple="true" style="width:400px;">
+    {% for trg_lang in trg_langs %}
+    <option value="{{trg_lang}}">{{trg_lang}}</option>
+    {% endfor %}
+</select>
+
 <table class="table">
     <theader>
         <th class="col-md-2">Name</th>

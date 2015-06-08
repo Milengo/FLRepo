@@ -1,3 +1,3 @@
 $( document ).ready(function() {
-    $(".chosen").chosen()
+    $(".chosen").data("placeholder","Select Language").chosen()
 });

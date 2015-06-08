@@ -56,7 +56,7 @@ def get_langs(tm_list):
             src_lang.append(tm.SourceLanguageCode)
         if tm.TargetLanguageCode not in trg_lang:
             trg_lang.append(tm.TargetLanguageCode)
-    return (src_lang, trg_lang)
+    return (sorted(src_lang), sorted(trg_lang))
 
 
 @app.route('/tm_download/<guid>/<name>')
