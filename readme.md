@@ -5,4 +5,5 @@ How to set up development instance
 2. set up virtual enviroment
 3. run pip install -r requirements.txt
 4. setup enviroment variable MEMOQ_SERVER_URL to point to your Memoq server with WebServices enabled.
+Example (windows) : set MEMOQ_SERVER_URL=http://your-server.url.org
 5. python runserver.py

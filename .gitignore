@@ -53,3 +53,7 @@ docs/_build/
 target/
 #TMX sample files
 *.tmx
+#notes files
+*.txt
+#media files
+media/
