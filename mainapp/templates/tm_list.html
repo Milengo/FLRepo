@@ -7,12 +7,12 @@
 <div class="panel-body">
 
 {% if tms %}
-<select class="chosen" multiple="true" style="width:400px;">
+<select class="chosen" id="srclang" multiple="true" style="width:400px;">
     {% for src_lang in src_langs %}
     <option value="{{src_lang}}">{{src_lang}}</option>
     {% endfor %}
 </select>
-<select class="chosen" multiple="true" style="width:400px;">
+<select class="chosen" id="trglang" multiple="true" style="width:400px;">
     {% for trg_lang in trg_langs %}
     <option value="{{trg_lang}}">{{trg_lang}}</option>
     {% endfor %}
@@ -28,13 +28,9 @@
     </theader>   
 <tbody> 
     {% for tminfo in tms %} 
-    {% if not (tminfo.Client and tminfo.Domain) != None %} 
-    <tr style="color:red"> 
-        {% else %} 
-    <tr> 
-        {% endif %} 
+    <tr data-srclang="{{ tminfo.SourceLanguageCode }}" data-trglang="{{ tminfo.TargetLanguageCode }}">
     <td >{{ tminfo.Name }} </td><td>{{ tminfo.SourceLanguageCode }}</td><td>{{ tminfo.TargetLanguageCode }}</td> 
-    <td> {{ tminfo.Client }}</td><td>{{ tminfo.Domain }}</td><td><button class="btn btn-warning"><a href="/tm_download/{{tminfo.Guid}}/{{tminfo.Name}}">Remove names</button></td> 
+    <td> {{ tminfo.Client }}</td><td>{{ tminfo.Domain }}</td><td><button class="btn btn-warning"><a href="/tm_download/{{tminfo.Guid}}/{{tminfo.Name}}">Download</a></button></td> 
     </tr> 
     {% endfor %} 
 </tbody> 
